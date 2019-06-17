@@ -2,11 +2,11 @@ import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 
 import { HomeTabNavigation } from './TopTab';
-import HomeScreen from 'src/screen/Home';
-import ProfileScreen from 'src/screen/Profile';
+import HomeScreen from '../../src/screen/Home';
+import ProfileScreen from '../../src/screen/Profile';
 
-import TabIcon from 'src/component/TabIcon';
-import AppStyles from 'src/config/styles';
+import TabIcon from '../../src/component/TabIcon';
+import AppStyles from '../../src/config/styles';
 
 const HomeTabIcon = ({ tintColor }) => (
     <TabIcon name="home" tintColor={tintColor} />
@@ -34,14 +34,14 @@ export const BottomTabNavigation = createBottomTabNavigator(
             }
         },
 
-        PeopleScreen: {
+        ProfileScreen: {
             screen: PeopleScreen,
             navigationOptions: {
                 header: null,
                 tabBarIcon: PeopleTabIcon
             }
         },
-        CameraTabScreen: {
+        HomeScreen: {
             screen: CameraScreen,
             navigationOptions: ({ navigation }) => ({
                 header: null,
@@ -51,14 +51,14 @@ export const BottomTabNavigation = createBottomTabNavigator(
                 }
             })
         },
-        GamesScreen: {
+        HomeScreen: {
             screen: GamesScreen,
             navigationOptions: {
                 header: null,
                 tabBarIcon: GamesTabIcon
             }
         },
-        PopularScreen: {
+        HomeScreen: {
             screen: PopularScreen,
             navigationOptions: {
                 header: null,

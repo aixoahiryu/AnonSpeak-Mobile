@@ -1,27 +1,27 @@
 import { Platform } from 'react-native';
 import { createMaterialTopTabNavigator } from 'react-navigation';
 
-import HomeScreen from 'src/screen/Home';
-import ProfileScreen from 'src/screen/Profile';
+import HomeScreen from '../../src/screen/Home';
+import ProfileScreen from '../../src/screen/Profile';
 
-import AppStyles from 'src/config/style';
+import AppStyles from '../../src/config/style';
 
 export const HomeTabNavigation = createMaterialTopTabNavigator(
     {
-        MessagesScreen: {
+        HomeScreen: {
             screen: MessagesScreen,
             navigationOptions: { header: null, title: 'Messages' }
         },
 
-        ActiveScreen: {
+        ProfileScreen: {
             screen: ActiveScreen,
             navigationOptions: { header: null, title: 'Active' }
         },
-        GroupsScreen: {
+        ProfileScreen: {
             screen: GroupsScreen,
             navigationOptions: { header: null, title: 'Groups' }
         },
-        CallsScreen: {
+        ProfileScreen: {
             screen: CallsScreen,
             navigationOptions: { header: null, title: 'Calls' }
         }
