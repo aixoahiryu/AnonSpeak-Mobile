@@ -9,20 +9,20 @@ import AppStyles from '../../src/config/style';
 export const HomeTabNavigation = createMaterialTopTabNavigator(
     {
         HomeScreen: {
-            screen: MessagesScreen,
+            screen: HomeScreen,
             navigationOptions: { header: null, title: 'Messages' }
         },
 
         ProfileScreen: {
-            screen: ActiveScreen,
+            screen: ProfileScreen,
             navigationOptions: { header: null, title: 'Active' }
         },
         ProfileScreen: {
-            screen: GroupsScreen,
+            screen: ProfileScreen,
             navigationOptions: { header: null, title: 'Groups' }
         },
         ProfileScreen: {
-            screen: CallsScreen,
+            screen: ProfileScreen,
             navigationOptions: { header: null, title: 'Calls' }
         }
     },

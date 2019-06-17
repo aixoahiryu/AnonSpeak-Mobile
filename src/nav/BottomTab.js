@@ -6,7 +6,7 @@ import HomeScreen from '../../src/screen/Home';
 import ProfileScreen from '../../src/screen/Profile';
 
 import TabIcon from '../../src/component/TabIcon';
-import AppStyles from '../../src/config/styles';
+import AppStyles from '../../src/config/style';
 
 const HomeTabIcon = ({ tintColor }) => (
     <TabIcon name="home" tintColor={tintColor} />
@@ -35,14 +35,14 @@ export const BottomTabNavigation = createBottomTabNavigator(
         },
 
         ProfileScreen: {
-            screen: PeopleScreen,
+            screen: ProfileScreen,
             navigationOptions: {
                 header: null,
                 tabBarIcon: PeopleTabIcon
             }
         },
         HomeScreen: {
-            screen: CameraScreen,
+            screen: ProfileScreen,
             navigationOptions: ({ navigation }) => ({
                 header: null,
                 tabBarIcon: CameraTabIcon,
@@ -52,14 +52,14 @@ export const BottomTabNavigation = createBottomTabNavigator(
             })
         },
         HomeScreen: {
-            screen: GamesScreen,
+            screen: ProfileScreen,
             navigationOptions: {
                 header: null,
                 tabBarIcon: GamesTabIcon
             }
         },
         HomeScreen: {
-            screen: PopularScreen,
+            screen: ProfileScreen,
             navigationOptions: {
                 header: null,
                 tabBarIcon: PopularTabIcon
