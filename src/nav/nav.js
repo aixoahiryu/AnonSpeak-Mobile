@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator, createAppContainer, createBottomTabNavigator, createMaterialTopTabNavigator} from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Platform } from 'react-native';
+import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import HomeScreen from '../../src/screen/Home';
 import ProfileScreen from '../../src/screen/Profile';
@@ -86,18 +87,19 @@ const ProfileStack = createStackNavigator({ Profile: {screen: ProfileScreen} });
 
 const TopTabNavigation = createMaterialTopTabNavigator(
     {
-        Home: {
-            screen: HomeScreen,
-            navigationOptions: { header: null, title: 'Messages' }
-        },
-        Active: {
+    	Room: {
             screen: ProfileScreen,
-            navigationOptions: { header: null, title: 'Active' }
+            navigationOptions: { header: null, title: 'Rooms' }
         },
-        Group: {
+        Message: {
+            screen: ChatScreen,
+            navigationOptions: { header: null, title: 'Message' }
+        },
+        Image: {
             screen: ProfileScreen,
-            navigationOptions: { header: null, title: 'Groups' }
+            navigationOptions: { header: null, title: 'Image' }
         },
+        
         Call: {
             screen: ProfileScreen,
             navigationOptions: { header: null, title: 'Calls' }
@@ -124,7 +126,7 @@ const TopTabNavigation = createMaterialTopTabNavigator(
     }
 );
 
-const TabNavigator = createBottomTabNavigator(
+const TabNavigator = createMaterialBottomTabNavigator(
   {
     Home: HomeStack,
     Chat: TopTabNavigation,
@@ -152,7 +154,6 @@ const TabNavigator = createBottomTabNavigator(
         }
         let color = focused ? 'dodgerblue' : 'gray';
 
-        // You can return any component that you like here!
         return <IconComponent name={iconName} size={25} color={tintColor} />;
       },
     }),

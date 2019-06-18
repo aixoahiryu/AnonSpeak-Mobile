@@ -9,9 +9,9 @@ const STATUS_BAR_HEIGHT = Platform.OS === 'ios' ? 32 : StatusBar.currentHeight;
 class Toolbar extends Component {
     componentDidMount() {
         if (Platform.OS === 'android') {
-            StatusBar.setBarStyle('light-content');
-            StatusBar.setTranslucent(true);
-            StatusBar.setBackgroundColor('rgba(0,0,0,0.26)');
+            // StatusBar.setBarStyle('light-content');
+            // StatusBar.setTranslucent(true);
+            // StatusBar.setBackgroundColor('rgba(0,0,0,0.26)');
         }
     }
     render() {
