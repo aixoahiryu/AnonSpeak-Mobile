@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Platform, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
-import FBStatusBar from '../../../src/components/FBStatusBar';
+import FBStatusBar from '../../../src/component/FBStatusBar';
 import styles from './styles';
 
 import { Appbar, Searchbar } from 'react-native-paper';

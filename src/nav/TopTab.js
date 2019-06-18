@@ -6,22 +6,21 @@ import ProfileScreen from '../../src/screen/Profile';
 
 import AppStyles from '../../src/config/style';
 
-export const HomeTabNavigation = createMaterialTopTabNavigator(
+export const TopTabNavigation = createMaterialTopTabNavigator(
     {
-        HomeScreen: {
+        Home: {
             screen: HomeScreen,
             navigationOptions: { header: null, title: 'Messages' }
         },
-
-        ProfileScreen: {
+        Active: {
             screen: ProfileScreen,
             navigationOptions: { header: null, title: 'Active' }
         },
-        ProfileScreen: {
+        Group: {
             screen: ProfileScreen,
             navigationOptions: { header: null, title: 'Groups' }
         },
-        ProfileScreen: {
+        Call: {
             screen: ProfileScreen,
             navigationOptions: { header: null, title: 'Calls' }
         }
