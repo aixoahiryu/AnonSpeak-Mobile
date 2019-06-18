@@ -3,8 +3,7 @@ import { View, Button, SectionList, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-   flex: 1,
-   paddingTop: 22
+   backgroundColor: 'white',
   },
   sectionHeader: {
     paddingTop: 2,
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class HomeScreen extends Component {
+export default class RoomScreen extends Component {
   static navigationOptions = {
     title: 'Home',
   };
@@ -36,9 +35,11 @@ export default class HomeScreen extends Component {
       // />
       <SectionList
         sections={[
-          {title: 'D', data: ['Devin']},
-          {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
+          {title: 'Đại sảnh', data: ['Thông báo', 'Thắc mắc & góp ý']},
+          {title: 'Khu vui chơi giải trí', data: ['Chuyện trò linh tinh', 'Điểm báo']},
+          {title: 'Mua và bán', data: ['Laptop', 'Desktop', 'Điện thoại']},
         ]}
+        style={styles.container}
         renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
         renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
         keyExtractor={(item, index) => index}

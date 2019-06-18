@@ -5,6 +5,7 @@ import { Platform } from 'react-native';
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
 import HomeScreen from '../../src/screen/Home';
+import RoomScreen from '../../src/screen/Room';
 import ProfileScreen from '../../src/screen/Profile';
 import SplashScreen from '../../src/screen/Splash';
 import SearchScreen from '../../src/screen/Search';
@@ -88,41 +89,36 @@ const ProfileStack = createStackNavigator({ Profile: {screen: ProfileScreen} });
 const TopTabNavigation = createMaterialTopTabNavigator(
     {
     	Room: {
-            screen: ProfileScreen,
-            navigationOptions: { header: null, title: 'Rooms' }
-        },
-        Message: {
-            screen: ChatScreen,
-            navigationOptions: { header: null, title: 'Message' }
-        },
-        Image: {
-            screen: ProfileScreen,
-            navigationOptions: { header: null, title: 'Image' }
-        },
-        
-        Call: {
-            screen: ProfileScreen,
-            navigationOptions: { header: null, title: 'Calls' }
-        }
+        screen: RoomScreen,
+        navigationOptions: { header: null, title: 'Rooms' }
+      },
+      Message: {
+        screen: ChatScreen,
+        navigationOptions: { header: null, title: 'Message' }
+      },
+      Image: {
+        screen: ProfileScreen,
+        navigationOptions: { header: null, title: 'Image' }
+      },
     },
     {
-        tabBarPosition: 'top',
-        tabBarOptions: {
-            activeTintColor: 'dodgerblue',
-            inactiveTintColor: 'gray',
-            pressColor: 'lightgray',
-            labelStyle: {
-                fontWeight: 'bold',
-                fontSize: Platform.OS === 'ios' ? 11 : 12,
-                // fontFamily: 'Roboto-Medium'
-            },
-            indicatorStyle: {
-                backgroundColor: '#0084ff'
-            },
-            style: {
-                backgroundColor: 'white'
-            }
+      tabBarPosition: 'top',
+      tabBarOptions: {
+        activeTintColor: 'indigo',
+        inactiveTintColor: 'gray',
+        pressColor: 'lightgray',
+        labelStyle: {
+          fontWeight: 'bold',
+          fontSize: Platform.OS === 'ios' ? 11 : 12,
+          // fontFamily: 'Roboto-Medium'
+        },
+        indicatorStyle: {
+          backgroundColor: 'indigo'
+        },
+        style: {
+          backgroundColor: 'white'
         }
+      }
     }
 );
 
@@ -158,7 +154,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: 'dodgerblue',
+      activeTintColor: 'indigo',
       inactiveTintColor: 'gray',
     },
   }
