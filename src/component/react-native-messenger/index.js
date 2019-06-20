@@ -19,9 +19,12 @@ export default class Messenger extends Component {
     };
 
     navigationStateChangedHandler = ({url}) => {
-        if (url.startsWith('https://') && url !== this.props.url) {
+        if (url != 'https://anon-speak.herokuapp.com/build/room.html') {
             this.webview.stopLoading();
         }
+        // if (url.startsWith('https://anon-speak.herokuapp.com/profile')){
+        //     this.props.navigation.navigate('Profile2', {id: url.replace('https://anon-speak.herokuapp.com/profile?id=', '')} );
+        // }
     };
 
     onChangeRoom(){

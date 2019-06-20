@@ -100,6 +100,10 @@ const TopTabNavigation = createMaterialTopTabNavigator(
         screen: ProfileScreen,
         navigationOptions: { header: null, title: 'Image' }
       },
+      Profile2: {
+        screen: ProfileScreen,
+        navigationOptions: { header: null, title: 'Profile' }
+      },
     },
     {
       tabBarPosition: 'top',
