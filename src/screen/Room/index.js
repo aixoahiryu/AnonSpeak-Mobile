@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, SectionList, Text, StyleSheet } from 'react-native';
+import { View, Button, SectionList, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,12 +35,16 @@ export default class RoomScreen extends Component {
       // />
       <SectionList
         sections={[
-          {title: 'Đại sảnh', data: ['Thông báo', 'Thắc mắc & góp ý']},
-          {title: 'Khu vui chơi giải trí', data: ['Chuyện trò linh tinh', 'Điểm báo']},
-          {title: 'Mua và bán', data: ['Laptop', 'Desktop', 'Điện thoại']},
+          {title: 'Đại sảnh', data: [{caption: 'Thông báo', id: 1}, {caption: 'Thắc mắc & góp ý', id: 2}]},
+          {title: 'Khu vui chơi giải trí', data: [{caption: 'Chuyện trò linh tinh', id: 3}, {caption: 'Điểm báo', id: 4}]},
+          {title: 'Mua và bán', data: [{caption: 'Laptop', id: 5}, {caption: 'Desktop', id: 6}, {caption: 'Điện thoại', id: 7}]},
         ]}
         style={styles.container}
-        renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+        renderItem={({item}) => <TouchableOpacity
+                onPress={() => this.props.navigation.navigate('Message', {id: item.id})}
+              >
+                <Text style={styles.item}>{item.caption}</Text>
+              </TouchableOpacity>}
         renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
         keyExtractor={(item, index) => index}
       />

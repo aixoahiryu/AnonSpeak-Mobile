@@ -3,8 +3,13 @@ import {View, Platform, TouchableWithoutFeedback, Keyboard, WebView} from 'react
 import Toolbar from './Toolbar';
 import InputModule from './InputModule';
 import KeyboardSpacer from '../KeyboardSpacer';
+import { NavigationEvents } from 'react-navigation';
+
+
 
 export default class Messenger extends Component {
+    state = {old_id: 0};
+
     onBackPress = () => {
         this.props.onBackPress();
     };
@@ -13,15 +18,37 @@ export default class Messenger extends Component {
         Keyboard.dismiss();
     };
 
+    navigationStateChangedHandler = ({url}) => {
+        if (url.startsWith('https://') && url !== this.props.url) {
+            this.webview.stopLoading();
+        }
+    };
+
+    onChangeRoom(){
+        if(this.props.navigation.getParam('id', 1) != this.state.old_id){
+            this.state.old_id = this.props.navigation.getParam('id', 1);
+            fetch('https://anon-speak.herokuapp.com/api/message/' + this.props.navigation.getParam('id', 1))
+            .then((response)=>{ return response.text() })
+            .then((response) => {
+                html1 = escape(response);
+                this.webview.postMessage(JSON.stringify( {html: html1, type: 'content'} ), "*");
+            });
+        }
+        
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
                 <Toolbar onBackPress={this.onBackPress} />
-                <TouchableWithoutFeedback onPress={this.dismissKeyboard}>
                     <View style={{ flex: 1 }}>
-                        <WebView source={{html: 'Testing'}} originWhitelist={['*']} />
+                        <NavigationEvents
+                            onDidFocus={payload => this.onChangeRoom()}
+                        />
+                        <WebView onPress={this.dismissKeyboard} source={{uri: 'https://anon-speak.herokuapp.com/build/room.html'}} originWhitelist={['*']} 
+                        ref={( webview ) => this.webview = webview}
+                        onNavigationStateChange={this.navigationStateChangedHandler}/>
                     </View>
-                </TouchableWithoutFeedback>
                 
                 <InputModule />
                 {Platform.OS === 'ios' && <KeyboardSpacer />}
