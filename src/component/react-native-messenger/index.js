@@ -4,13 +4,13 @@ import Toolbar from './Toolbar';
 import InputModule from './InputModule';
 import KeyboardSpacer from '../KeyboardSpacer';
 import { NavigationEvents } from 'react-navigation';
-import SocketIOClient from 'socket.io-client';
+const io = require('socket.io-client');
 
 
 export default class Messenger extends Component {
     constructor(props){
         super(props);
-        this.socket = SocketIOClient('https://anon-speak.herokuapp.com/', {secure: true});
+        this.socket = io('https://anon-speak.herokuapp.com:80', {jsonp: false, transports: ['websocket']});
     }
 
     state = {old_id: 0};
@@ -30,7 +30,7 @@ export default class Messenger extends Component {
     };
 
     textCallback(data){
-        this.socket.emit('room' + this.state.old_id, data, () => {});
+        this.socket.emit('room' + this.state.old_id, data);
     }
 
     onChangeRoom(){
