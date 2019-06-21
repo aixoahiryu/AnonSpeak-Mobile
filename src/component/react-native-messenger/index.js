@@ -4,10 +4,15 @@ import Toolbar from './Toolbar';
 import InputModule from './InputModule';
 import KeyboardSpacer from '../KeyboardSpacer';
 import { NavigationEvents } from 'react-navigation';
-
+import SocketIOClient from 'socket.io-client';
 
 
 export default class Messenger extends Component {
+    constructor(props){
+        super(props);
+        this.socket = SocketIOClient('https://anon-speak.herokuapp.com/', {secure: true});
+    }
+
     state = {old_id: 0};
 
     onBackPress = () => {
@@ -23,6 +28,10 @@ export default class Messenger extends Component {
             this.webview.stopLoading();
         }
     };
+
+    textCallback(data){
+        this.socket.emit('room' + this.state.old_id, data, () => {});
+    }
 
     onChangeRoom(){
         if(this.props.navigation.getParam('id', 1) != this.state.old_id){
@@ -50,7 +59,7 @@ export default class Messenger extends Component {
                         onNavigationStateChange={this.navigationStateChangedHandler}/>
                     </View>
                 
-                <InputModule />
+                <InputModule callbackFromParent={this.textCallback} />
                 {Platform.OS === 'ios' && <KeyboardSpacer />}
             </View>
         );

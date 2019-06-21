@@ -45,6 +45,11 @@ export default class InputModule extends Component {
         });
     };
 
+    sendPressed(){
+        this.props.callbackFromParent(this.state.text);
+        this.input1.clear();
+    }
+
     render() {
         return (
             <View
@@ -105,17 +110,18 @@ export default class InputModule extends Component {
                     onChangeText={text => this.setState({ text })}
                     underlineColorAndroid="transparent"
                     multiline
+                    ref={input => this.input1 = input}
                 />
                 <TouchableRipple
                     borderless
-                    onPress={() => console.log('Pressed')}
+                    onPress={() => this.sendPressed()}
                     rippleColor="rgba(0, 0, 0, .32)"
                     style={styles.btn}
                 >
                     <Icon
                         size={24}
                         color={AppStyles.colors.accentColor}
-                        name="thumb-up"
+                        name="send"
                     />
                 </TouchableRipple>
             </View>
