@@ -10,10 +10,31 @@ const io = require('socket.io-client');
 export default class Messenger extends Component {
     constructor(props){
         super(props);
-        this.socket = io('https://anon-speak.herokuapp.com:80', {jsonp: false, transports: ['websocket']});
+        // this.socket = io('https://anon-speak.herokuapp.com:80', {jsonp: false, transports: ['websocket']});
     }
 
-    state = {old_id: 0};
+    state = {
+        old_id: 0,
+        url: 'https://anon-speak.herokuapp.com/api/socket/1',
+        type: 'Anonymous',
+        username: 'Anonymous0'
+    };
+
+    componentDidMount() {
+        // let timer = setInterval(this.tick, 7000);
+        // this.setState({timer});
+    }
+
+    tick = () => {
+        // this.webview.reload();
+        // fetch('https://anon-speak.herokuapp.com/api/message/' + this.props.navigation.getParam('id', 1))
+        //     .then((response)=>{ return response.text() })
+        //     .then((response) => {
+        //         html1 = escape(response);
+        //         this.webview.postMessage(JSON.stringify( {html: html1, type: 'content'} ), "*");
+        //         // console.log(response);
+        //     });
+    }
 
     onBackPress = () => {
         this.props.onBackPress();
@@ -24,25 +45,32 @@ export default class Messenger extends Component {
     };
 
     navigationStateChangedHandler = ({url}) => {
-        if (url != 'https://anon-speak.herokuapp.com/build/room.html') {
-            this.webview.stopLoading();
-        }
+        // if (!url.startsWith('https://anon-speak.herokuapp.com/api/socket')) {
+        //     this.webview.stopLoading();
+        // }
     };
 
-    textCallback(data){
-        this.socket.emit('room' + this.state.old_id, data);
+    textCallback = (data) => {
+        var chatcolor = '<font>';
+        if(this.state.type == 'User') chatcolor = '<a style="color:blue" href="/profile?id=' + this.state.username + '">';
+        // this.socket.emit('room' + this.state.old_id, data);
+        this.webview.postMessage(JSON.stringify( {message: chatcolor + this.state.username + '</a>: ' + data, type: 'message'} ), "*");
     }
 
     onChangeRoom(){
         if(this.props.navigation.getParam('id', 1) != this.state.old_id){
             this.state.old_id = this.props.navigation.getParam('id', 1);
-            fetch('https://anon-speak.herokuapp.com/api/message/' + this.props.navigation.getParam('id', 1))
-            .then((response)=>{ return response.text() })
-            .then((response) => {
-                html1 = escape(response);
-                this.webview.postMessage(JSON.stringify( {html: html1, type: 'content'} ), "*");
-            });
+            this.setState({url: 'https://anon-speak.herokuapp.com/api/socket/'+this.props.navigation.getParam('id', 1)});
+            // this.webview.reload();
+            // this.webview.postMessage(JSON.stringify( {room: 'https://anon-speak.herokuapp.com/api/socket/'+this.props.navigation.getParam('id', 1), type: 'room'} ), "*");
+            // fetch('https://anon-speak.herokuapp.com/api/message/' + this.props.navigation.getParam('id', 1))
+            // .then((response)=>{ return response.text() })
+            // .then((response) => {
+            //     html1 = escape(response);
+            //     this.webview.postMessage(JSON.stringify( {html: html1, type: 'content'} ), "*");
+            // });
         }
+        // this.webview.navigate('https://anon-speak.herokuapp.com/api/socket/'+this.props.navigation.getParam('id', 1));
         
     }
 
@@ -54,7 +82,7 @@ export default class Messenger extends Component {
                         <NavigationEvents
                             onDidFocus={payload => this.onChangeRoom()}
                         />
-                        <WebView onPress={this.dismissKeyboard} source={{uri: 'https://anon-speak.herokuapp.com/build/room.html'}} originWhitelist={['*']} 
+                        <WebView onPress={this.dismissKeyboard} source={{uri: this.state.url}} originWhitelist={['*']} 
                         ref={( webview ) => this.webview = webview}
                         onNavigationStateChange={this.navigationStateChangedHandler}/>
                     </View>
