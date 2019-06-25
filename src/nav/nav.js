@@ -14,6 +14,7 @@ import ChatScreen from '../../src/screen/Chat';
 import ImageScreen from '../../src/screen/Image';
 import WelcomeScreen from '../../src/screen/Welcome';
 import OptionScreen from '../../src/screen/Option';
+import LoginScreen from '../../src/screen/Login';
 
 // import { BottomTabNavigation } from './BottomTab';
 // import { TopTabNavigation } from './TopTab';
@@ -86,7 +87,11 @@ const AppContainer = createAppContainer(MainNavigator);
 export default AppContainer;
 
 //====================[Tab]====================
-const HomeStack = createStackNavigator({ Home: {screen: HomeScreen} });
+const HomeStack = createStackNavigator({
+  Home: {screen: HomeScreen},
+  Login: {screen: LoginScreen},
+  Welcome: {screen: WelcomeScreen},
+});
 const ProfileStack = createStackNavigator({ Profile: {screen: ProfileScreen} });
 const Profile2Stack = createStackNavigator({ Profile2: {screen: Profile2Screen} });
 const ConfigStack = createStackNavigator({ Config: {screen: OptionScreen} });

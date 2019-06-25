@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Platform, TouchableWithoutFeedback, Keyboard, WebView} from 'react-native';
+import {View, Platform, TouchableWithoutFeedback, Keyboard, WebView, AsyncStorage} from 'react-native';
 import Toolbar from './Toolbar';
 import InputModule from './InputModule';
 import KeyboardSpacer from '../KeyboardSpacer';
@@ -23,6 +23,7 @@ export default class Messenger extends Component {
     componentDidMount() {
         // let timer = setInterval(this.tick, 7000);
         // this.setState({timer});
+        this.getData();
     }
 
     tick = () => {
@@ -35,6 +36,15 @@ export default class Messenger extends Component {
         //         // console.log(response);
         //     });
     }
+
+    getData = async () => {
+        try {
+            var data = await AsyncStorage.getItem('username');
+            this.setState({ username: data });
+            data = await AsyncStorage.getItem('type');
+            this.setState({ type: data });
+        } catch (error) { }
+    };
 
     onBackPress = () => {
         this.props.onBackPress();
@@ -80,7 +90,7 @@ export default class Messenger extends Component {
                 <Toolbar onBackPress={this.onBackPress} />
                     <View style={{ flex: 1 }}>
                         <NavigationEvents
-                            onDidFocus={payload => this.onChangeRoom()}
+                            onDidFocus={payload => {this.onChangeRoom(); this.getData()}}
                         />
                         <WebView onPress={this.dismissKeyboard} source={{uri: this.state.url}} originWhitelist={['*']} 
                         ref={( webview ) => this.webview = webview}

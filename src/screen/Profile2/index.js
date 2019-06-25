@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Button, SectionList, Text, StyleSheet, WebView } from 'react-native';
+import { View, Button, SectionList, Text, StyleSheet, WebView, AsyncStorage } from 'react-native';
 import SearchHeader from '../../../src/component/SearchHeader';
+import { NavigationEvents } from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,9 +31,20 @@ export default class Profile2Screen extends Component {
 
   state = {
     old_id: 0,
-    url: 'https://anon-speak.herokuapp.com/api/mprofile/test1',
+    url: '',
     type: 'Anonymous',
     username: 'Anonymous0'
+  };
+
+  getData = async () => {
+    try {
+      var data = await AsyncStorage.getItem('type');
+      if(data == 'User'){
+        data = await AsyncStorage.getItem('username');
+        this.setState({username: data});
+        this.setState({url: 'https://anon-speak.herokuapp.com/api/mprofile/' + this.state.username});
+      }
+      } catch (error) { }
   };
 
   textCallback = (data) => {
@@ -49,11 +61,10 @@ export default class Profile2Screen extends Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      // <Button
-      //   title="Go to Profile"
-      //   onPress={() => navigate('Profile', {name: 'Jane'})}
-      // />
       <View style={styles.container}>
+        <NavigationEvents
+          onDidFocus={payload => this.getData()}
+        />
         <WebView onPress={this.dismissKeyboard} source={{uri: this.state.url}} originWhitelist={['*']} 
         ref={( webview ) => this.webview = webview}
         onNavigationStateChange={this.navigationStateChangedHandler}/>

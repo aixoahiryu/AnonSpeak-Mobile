@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, SectionList, Text, StyleSheet } from 'react-native';
+import { View, Button, SectionList, Text, StyleSheet, AsyncStorage } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +25,8 @@ const styles = StyleSheet.create({
 
 export default class WelcomeScreen extends Component {
   static navigationOptions = {
-    title: 'Home',
+    title: 'Welcome',
+    headerLeft: null
   };
 
   state = {
@@ -34,22 +36,40 @@ export default class WelcomeScreen extends Component {
     username: 'Anonymous0'
   };
 
+  componentDidMount(){
+    this.getData();
+  }
+
+  getData = async () => {
+    try {
+      var data = await AsyncStorage.getItem('username');
+      this.setState({ username: data });
+    } catch (error) { }
+  };
+
+  logoutPressed = async () => {
+    try {
+      await AsyncStorage.setItem('username', '');
+      await AsyncStorage.setItem('type', 'Anonymous');
+      this.props.navigation.navigate('Login');
+    } catch (error) { }
+  };
+
+
+
   render() {
     const {navigate} = this.props.navigation;
     return (
-      // <Button
-      //   title="Go to Profile"
-      //   onPress={() => navigate('Profile', {name: 'Jane'})}
-      // />
-      <SectionList
-        sections={[
-          {title: 'D', data: ['Devin']},
-          {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-        ]}
-        renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-        renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-        keyExtractor={(item, index) => index}
-      />
+      <View>
+        <NavigationEvents
+          onDidFocus={payload => this.getData()}
+        />
+        <Text>Currently logged in as: {this.state.username}</Text>
+        <Button
+          title="Logout"
+          onPress={() => this.logoutPressed()}
+        />
+      </View>
     );
   }
 }

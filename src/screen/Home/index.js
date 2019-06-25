@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Button, SectionList, Text, StyleSheet } from 'react-native';
+import { View, Button, SectionList, Text, StyleSheet, AsyncStorage } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 
 const styles = StyleSheet.create({
   container: {
@@ -34,6 +35,18 @@ export default class HomeScreen extends Component {
     username: 'Anonymous0'
   };
 
+  componentDidMount(){
+    this.getData();
+  };
+
+  getData = async () => {
+    try {
+      var data = await AsyncStorage.getItem('username');
+        if (data == null || data == '') { this.props.navigation.navigate('Login'); }
+        else{ this.props.navigation.navigate('Welcome'); }
+    } catch (error) { }
+  };
+
   dismissKeyboard = () => {
     Keyboard.dismiss();
   };
@@ -41,10 +54,10 @@ export default class HomeScreen extends Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      // <Button
-      //   title="Go to Profile"
-      //   onPress={() => navigate('Profile', {name: 'Jane'})}
-      // />
+      <View>
+      <NavigationEvents
+        onDidFocus={payload => this.getData()}
+      />
       <SectionList
         sections={[
           {title: 'D', data: ['Devin']},
@@ -54,6 +67,7 @@ export default class HomeScreen extends Component {
         renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
         keyExtractor={(item, index) => index}
       />
+      </View>
     );
   }
 }
