@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class HomeScreen extends Component {
+export default class LoginScreen extends Component {
   static navigationOptions = {
     title: 'Home',
   };

@@ -7,9 +7,13 @@ import { createMaterialBottomTabNavigator } from "react-navigation-material-bott
 import HomeScreen from '../../src/screen/Home';
 import RoomScreen from '../../src/screen/Room';
 import ProfileScreen from '../../src/screen/Profile';
+import Profile2Screen from '../../src/screen/Profile2';
 import SplashScreen from '../../src/screen/Splash';
 import SearchScreen from '../../src/screen/Search';
 import ChatScreen from '../../src/screen/Chat';
+import ImageScreen from '../../src/screen/Image';
+import WelcomeScreen from '../../src/screen/Welcome';
+import OptionScreen from '../../src/screen/Option';
 
 // import { BottomTabNavigation } from './BottomTab';
 // import { TopTabNavigation } from './TopTab';
@@ -84,6 +88,8 @@ export default AppContainer;
 //====================[Tab]====================
 const HomeStack = createStackNavigator({ Home: {screen: HomeScreen} });
 const ProfileStack = createStackNavigator({ Profile: {screen: ProfileScreen} });
+const Profile2Stack = createStackNavigator({ Profile2: {screen: Profile2Screen} });
+const ConfigStack = createStackNavigator({ Config: {screen: OptionScreen} });
 // const InfoStack = createStackNavigator({ Info: {screen: TopTabNavigation} });
 
 const TopTabNavigation = createMaterialTopTabNavigator(
@@ -97,8 +103,8 @@ const TopTabNavigation = createMaterialTopTabNavigator(
         navigationOptions: { header: null, title: 'Message' }
       },
       Image: {
-        screen: ProfileScreen,
-        navigationOptions: { header: null, title: 'Image' }
+        screen: ImageScreen,
+        navigationOptions: { header: null, title: 'Image Upload' }
       },
       Profile2: {
         screen: ProfileScreen,
@@ -130,8 +136,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
   {
     Home: HomeStack,
     Chat: TopTabNavigation,
-    Profile: ProfileStack,
-    Info: ProfileStack,
+    Profile: Profile2Stack,
+    Config: ConfigStack,
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -149,8 +155,9 @@ const TabNavigator = createMaterialBottomTabNavigator(
         else if (routeName === 'Profile') {
           iconName = `ios-person`;
         }
-        else if (routeName === 'Info') {
-          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+        else if (routeName === 'Config') {
+          // iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+          iconName = `ios-cog`;
         }
         let color = focused ? 'dodgerblue' : 'gray';
 

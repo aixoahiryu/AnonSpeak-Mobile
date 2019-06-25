@@ -1,54 +1,44 @@
 import { StyleSheet } from 'react-native';
+import Metrics from '../../../src/config/metrics';
 import AppStyles from '../../../src/config/style';
 import { isIphoneX } from '../../../src/lib/isIphoneX';
 
 const styles = StyleSheet.create({
     container: {
-        height: isIphoneX() ? 100 : null,
-        backgroundColor: AppStyles.colors.black,
-        justifyContent: 'flex-end',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: AppStyles.colors.separator
-    },
-    elevatedContainer: {
-        height: isIphoneX() ? 100 : null,
-        backgroundColor: AppStyles.colors.black,
-        justifyContent: 'flex-end',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: AppStyles.colors.separator,
-        elevation: 4
-    },
-
-    searchbar: {
-        backgroundColor: AppStyles.colors.white,
-        elevation: 0
-    },
-    toolbar: {
-        backgroundColor: AppStyles.colors.white
-    },
-    search: {
+        height: isIphoneX() ? 74 : 50,
         flexDirection: 'row',
-        height: 50,
-        alignItems: 'center'
+        paddingHorizontal: 8,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: AppStyles.colors.grey,
+        paddingBottom: isIphoneX() ? 24 : 0
     },
-    input: {
-        width: '90%',
-        height: 40,
-        paddingHorizontal: 10,
-        fontSize: 16,
-        fontFamily: AppStyles.fonts.FONT_REGULAR
+    customContainer: {
+        height: 50,
+        flexDirection: 'row',
+        paddingHorizontal: 8,
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: AppStyles.colors.grey,
+        paddingBottom: 0
     },
     btn: {
-        width: '75%',
-        height: 40,
+        width: 32,
+        height: 32,
         justifyContent: 'center',
-        paddingHorizontal: 16
+        alignItems: 'center',
+        borderRadius: 16,
+        overflow: 'hidden'
     },
-    btnText: {
-        fontSize: 16,
-        fontFamily: AppStyles.fonts.FONT_REGULAR,
-        color: '#7f8c8d'
+    input: {
+        width: Metrics.screenWidth - 70,
+        height: 36,
+        borderRadius: 24,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: AppStyles.colors.grey,
+        marginVertical: 8
     }
 });
-
 export default styles;

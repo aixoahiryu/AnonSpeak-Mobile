@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class ProfileScreen extends Component {
+export default class Profile2Screen extends Component {
   static navigationOptions = {
     title: 'Profile',
   };
@@ -36,17 +36,14 @@ export default class ProfileScreen extends Component {
   };
 
   textCallback = (data) => {
-    this.setState({url: 'https://anon-speak.herokuapp.com/api/mprofile/' + data});
+    var chatcolor = '<font>';
+    if(this.state.type == 'User') chatcolor = '<a style="color:blue" href="/profile?id=' + this.state.username + '">';
+    // this.socket.emit('room' + this.state.old_id, data);
+    this.webview.postMessage(JSON.stringify( {message: chatcolor + this.state.username + '</a>: ' + data, type: 'message'} ), "*");
   }
 
   dismissKeyboard = () => {
     Keyboard.dismiss();
-  };
-
-  navigationStateChangedHandler = ({url}) => {
-    if (!url.startsWith('https://anon-speak.herokuapp.com/api/mprofile/')) {
-      this.webview.stopLoading();
-    }
   };
 
   render() {
@@ -57,7 +54,6 @@ export default class ProfileScreen extends Component {
       //   onPress={() => navigate('Profile', {name: 'Jane'})}
       // />
       <View style={styles.container}>
-        <SearchHeader callbackFromParent={this.textCallback} />
         <WebView onPress={this.dismissKeyboard} source={{uri: this.state.url}} originWhitelist={['*']} 
         ref={( webview ) => this.webview = webview}
         onNavigationStateChange={this.navigationStateChangedHandler}/>

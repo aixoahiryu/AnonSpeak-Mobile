@@ -22,9 +22,16 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class OptionScreen extends Component {
+export default class WelcomeScreen extends Component {
   static navigationOptions = {
-    title: 'Option',
+    title: 'Home',
+  };
+
+  state = {
+    old_id: 0,
+    url: 'https://anon-speak.herokuapp.com/mprofile/test1',
+    type: 'Anonymous',
+    username: 'Anonymous0'
   };
 
   render() {

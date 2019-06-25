@@ -45,9 +45,9 @@ export default class Messenger extends Component {
     };
 
     navigationStateChangedHandler = ({url}) => {
-        // if (!url.startsWith('https://anon-speak.herokuapp.com/api/socket')) {
-        //     this.webview.stopLoading();
-        // }
+        if (!url.startsWith('https://anon-speak.herokuapp.com/api/socket')) {
+            this.webview.stopLoading();
+        }
     };
 
     textCallback = (data) => {

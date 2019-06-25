@@ -27,6 +27,17 @@ export default class HomeScreen extends Component {
     title: 'Home',
   };
 
+  state = {
+    old_id: 0,
+    url: 'https://anon-speak.herokuapp.com/mprofile/test1',
+    type: 'Anonymous',
+    username: 'Anonymous0'
+  };
+
+  dismissKeyboard = () => {
+    Keyboard.dismiss();
+  };
+
   render() {
     const {navigate} = this.props.navigation;
     return (

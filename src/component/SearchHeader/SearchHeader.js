@@ -1,96 +1,86 @@
 import React, { Component } from 'react';
-import { View, Platform, TouchableOpacity } from 'react-native';
-import { Text } from 'react-native-paper';
-import FBStatusBar from '../../../src/component/FBStatusBar';
+import { View, TextInput, Keyboard, Platform } from 'react-native';
+import { TouchableRipple } from 'react-native-paper';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import AppStyles from '../../../src/config/style';
 import styles from './styles';
 
-import { Appbar, Searchbar } from 'react-native-paper';
+export default class InputModule extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: ''
+        };
+    }
 
-export default class SearchHeader extends Component {
-    state = {
-        searchQuery: '',
-        isFocused: false
-    };
+    componentDidMount() {
+        if (Platform.OS === 'ios') {
+            this.keyboardDidShowListener = Keyboard.addListener(
+                'keyboardWillShow',
+                this._keyboardDidShow
+            );
+            this.keyboardDidHideListener = Keyboard.addListener(
+                'keyboardWillHide',
+                this._keyboardDidHide
+            );
+        }
+    }
 
-    onFocus = () => {
-        this.setState(
-            {
-                isFocused: true
-            },
-            () => {
-                this.props.navigation.navigate('SearchScreen');
-                setTimeout(() => {
-                    this.searchTextInput.focus();
-                }, 240);
-            }
-        );
-    };
+    componentWillUnmount() {
+        if (Platform.OS === 'ios') {
+            this.keyboardDidShowListener.remove();
+            this.keyboardDidHideListener.remove();
+        }
+    }
 
-    onBlur = () => {
+    _keyboardDidShow = () => {
         this.setState({
-            isFocused: false
+            keyboardShown: true
         });
     };
 
-    onPress = () => {
-        if (this.state.isFocused) {
-            this.setState({
-                isFocused: false
-            });
-            this.props.navigation.pop();
-        } else {
-            this.onFocus();
-        }
+    _keyboardDidHide = () => {
+        this.setState({
+            keyboardShown: false
+        });
     };
 
-    render() {
-        const activeScreen = this.props.navigation.state.routes[
-            this.props.navigation.state.index
-        ].routeName;
+    sendPressed(){
+        this.props.callbackFromParent(this.state.text);
+        this.input1.clear();
+    }
 
+    render() {
         return (
             <View
                 style={
-                    activeScreen === 'HomeScreen'
-                        ? styles.container
-                        : styles.elevatedContainer
+                    this.state.keyboardShown
+                        ? styles.customContainer
+                        : styles.container
                 }
             >
-                <FBStatusBar backgroundColor="black" barStyle="light-content" />
-                {this.state.isFocused ? (
-                    <Appbar.Header style={styles.toolbar}>
-                        <Searchbar
-                            ref={input => {
-                                this.searchTextInput = input;
-                            }}
-                            style={styles.searchbar}
-                            placeholder="Search"
-                            icon={
-                                Platform.OS === 'ios'
-                                    ? 'keyboard-arrow-left'
-                                    : 'arrow-back'
-                            }
-                            onIconPress={this.onPress}
-                            onChangeText={query => {
-                                this.setState({ searchQuery: query });
-                            }}
-                            onFocus={this.onFocus}
-                            onBlur={this.onBlur}
-                            value={this.state.searchQuery}
-                        />
-                    </Appbar.Header>
-                ) : (
-                    <Appbar.Header style={styles.toolbar}>
-                        <Appbar.Action icon="search" onPress={this.onPress} />
-                        <TouchableOpacity
-                            style={styles.btn}
-                            onPress={this.onPress}
-                        >
-                            <Text style={styles.btnText}>Search</Text>
-                        </TouchableOpacity>
-                        <Appbar.Action icon="face" onPress={this._onSearch} />
-                    </Appbar.Header>
-                )}
+                
+                <TextInput
+                    label="Profile"
+                    value={this.state.text}
+                    style={styles.input}
+                    onChangeText={text => this.setState({ text })}
+                    underlineColorAndroid="transparent"
+                    multiline
+                    ref={input => this.input1 = input}
+                />
+                <TouchableRipple
+                    borderless
+                    onPress={() => this.sendPressed()}
+                    rippleColor="rgba(0, 0, 0, .32)"
+                    style={styles.btn}
+                >
+                    <Icon
+                        size={24}
+                        color={AppStyles.colors.accentColor}
+                        name="send"
+                    />
+                </TouchableRipple>
             </View>
         );
     }

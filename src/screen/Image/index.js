@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Button, SectionList, Text, StyleSheet } from 'react-native';
+import { View, Button, SectionList, Text, StyleSheet, WebView } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,9 +22,20 @@ const styles = StyleSheet.create({
   },
 })
 
-export default class OptionScreen extends Component {
+export default class ImageScreen extends Component {
   static navigationOptions = {
-    title: 'Option',
+    title: 'Image Upload',
+  };
+
+  state = {
+    old_id: 0,
+    url: 'https://www.upsieutoc.com/',
+    type: 'Anonymous',
+    username: 'Anonymous0'
+  };
+
+  dismissKeyboard = () => {
+    Keyboard.dismiss();
   };
 
   render() {
@@ -34,15 +45,11 @@ export default class OptionScreen extends Component {
       //   title="Go to Profile"
       //   onPress={() => navigate('Profile', {name: 'Jane'})}
       // />
-      <SectionList
-        sections={[
-          {title: 'D', data: ['Devin']},
-          {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-        ]}
-        renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-        renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-        keyExtractor={(item, index) => index}
-      />
+      <View style={{ flex: 1 }}>
+        <WebView onPress={this.dismissKeyboard} source={{uri: this.state.url}} originWhitelist={['*']} 
+        ref={( webview ) => this.webview = webview}
+        onNavigationStateChange={this.navigationStateChangedHandler}/>
+      </View>
     );
   }
 }
