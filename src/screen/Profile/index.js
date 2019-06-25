@@ -30,7 +30,7 @@ export default class ProfileScreen extends Component {
 
   state = {
     old_id: 0,
-    url: 'https://anon-speak.herokuapp.com/api/mprofile/test1',
+    url: '',
     type: 'Anonymous',
     username: 'Anonymous0'
   };

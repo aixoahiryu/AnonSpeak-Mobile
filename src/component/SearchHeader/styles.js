@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: AppStyles.colors.grey,
+        borderColor: AppStyles.colors.white,
         paddingBottom: isIphoneX() ? 24 : 0
     },
     customContainer: {
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: AppStyles.colors.grey,
+        borderColor: AppStyles.colors.white,
         paddingBottom: 0
     },
     btn: {
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         height: 36,
         borderRadius: 24,
         borderWidth: StyleSheet.hairlineWidth,
-        borderColor: AppStyles.colors.grey,
+        borderColor: AppStyles.colors.white,
         marginVertical: 8
     }
 });

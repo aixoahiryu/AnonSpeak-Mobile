@@ -78,7 +78,7 @@ export default class InputModule extends Component {
                     <Icon
                         size={24}
                         color={AppStyles.colors.accentColor}
-                        name="send"
+                        name="search"
                     />
                 </TouchableRipple>
             </View>

@@ -24,25 +24,19 @@ const styles = StyleSheet.create({
 
 export default class LoginScreen extends Component {
   static navigationOptions = {
-    title: 'Home',
+    title: 'Login',
   };
 
   render() {
     const {navigate} = this.props.navigation;
     return (
+      <View style={styles.container}>
       // <Button
       //   title="Go to Profile"
       //   onPress={() => navigate('Profile', {name: 'Jane'})}
       // />
-      <SectionList
-        sections={[
-          {title: 'D', data: ['Devin']},
-          {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-        ]}
-        renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-        renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-        keyExtractor={(item, index) => index}
-      />
+        
+      </View>
     );
   }
 }

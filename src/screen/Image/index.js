@@ -46,9 +46,8 @@ export default class ImageScreen extends Component {
       //   onPress={() => navigate('Profile', {name: 'Jane'})}
       // />
       <View style={{ flex: 1 }}>
-        <WebView onPress={this.dismissKeyboard} source={{uri: this.state.url}} originWhitelist={['*']} 
-        ref={( webview ) => this.webview = webview}
-        onNavigationStateChange={this.navigationStateChangedHandler}/>
+        <WebView source={{uri: this.state.url}} originWhitelist={['*']} 
+        ref={( webview ) => this.webview = webview}/>
       </View>
     );
   }
