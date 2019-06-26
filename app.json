@@ -24,8 +24,12 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+	  "bundleIdentifier": "com.zetalockhart.anonspeak"
     },
+	"android": {
+		"package": "com.zetalockhart.anonspeak"
+	},
     "description": "",
     "androidStatusBar": {
       "barStyle": "light-content",
