@@ -23,13 +23,14 @@ class Toolbar extends Component {
                 <Appbar.BackAction onPress={onBackPress} />
                 <Image
                     source={{
-                        uri:
-                            'https://randomuser.me/api/portraits/med/men/21.jpg'
+                        // uri: 'https://randomuser.me/api/portraits/med/men/21.jpg'
+                        uri: this.props.avatar
                     }}
                     style={styles.avatar}
                 />
                 <Appbar.Content
-                    title="Denny"
+                    // title="Denny"
+                    title={this.props.name}
                     titleStyle={[
                         styles.titleStyle,
                         {
@@ -42,7 +43,7 @@ class Toolbar extends Component {
                             fontFamily: fonts.light
                         }
                     ]}
-                    subtitle={'Active 32 minutes ago'}
+                    subtitle={this.props.username}
                 />
 
                 <Appbar.Action icon="call" onPress={() => {}} />

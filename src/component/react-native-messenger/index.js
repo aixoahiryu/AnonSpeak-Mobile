@@ -17,13 +17,16 @@ export default class Messenger extends Component {
         old_id: 0,
         url: 'https://anon-speak.herokuapp.com/api/socket/1',
         type: 'Anonymous',
-        username: 'Anonymous0'
+        username: 'Anonymous0',
+        avatar: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/EP2402-CUSA05624_00-AV00000000000098//image?_version=00_09_000&platform=chihiro&w=720&h=720&bg_color=000000&opacity=100',
+        name: 'Samuel Doe'
     };
 
     componentDidMount() {
         // let timer = setInterval(this.tick, 7000);
         // this.setState({timer});
         this.getData();
+        
     }
 
     tick = () => {
@@ -43,6 +46,13 @@ export default class Messenger extends Component {
             this.setState({ username: data });
             data = await AsyncStorage.getItem('type');
             this.setState({ type: data });
+
+            fetch('https://anon-speak.herokuapp.com/api/profile/' + this.state.username)
+            .then((response)=>{ return response.json() })
+            .then((response) => {
+                this.setState({avatar: response.avatar});
+                this.setState({name: response.name});
+            });
         } catch (error) { }
     };
 
@@ -87,7 +97,7 @@ export default class Messenger extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
-                <Toolbar onBackPress={this.onBackPress} />
+                <Toolbar onBackPress={this.onBackPress} username={this.state.username} avatar={this.state.avatar} name={this.state.name} />
                     <View style={{ flex: 1 }}>
                         <NavigationEvents
                             onDidFocus={payload => {this.onChangeRoom(); this.getData()}}
