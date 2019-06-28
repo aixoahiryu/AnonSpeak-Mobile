@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Platform, TouchableWithoutFeedback, Keyboard, WebView, AsyncStorage} from 'react-native';
+import {ToastAndroid, View, Platform, TouchableWithoutFeedback, Keyboard, WebView, AsyncStorage} from 'react-native';
 import Toolbar from './Toolbar';
 import InputModule from './InputModule';
 import KeyboardSpacer from '../KeyboardSpacer';
@@ -19,7 +19,8 @@ export default class Messenger extends Component {
         type: 'Anonymous',
         username: 'Anonymous0',
         avatar: 'https://store.playstation.com/store/api/chihiro/00_09_000/container/TR/tr/99/EP2402-CUSA05624_00-AV00000000000098//image?_version=00_09_000&platform=chihiro&w=720&h=720&bg_color=000000&opacity=100',
-        name: 'Samuel Doe'
+        name: 'Samuel Doe',
+        banned: 0
     };
 
     componentDidMount() {
@@ -53,6 +54,12 @@ export default class Messenger extends Component {
                 this.setState({avatar: response.avatar});
                 this.setState({name: response.name});
             });
+
+            fetch('https://anon-speak.herokuapp.com/api/account/' + this.state.username)
+            .then((response)=>{ return response.json() })
+            .then((response) => {
+                this.state.banned = response.banned;
+            });
         } catch (error) { }
     };
 
@@ -74,7 +81,11 @@ export default class Messenger extends Component {
         var chatcolor = '<font>';
         if(this.state.type == 'User') chatcolor = '<a style="color:blue" href="/profile?id=' + this.state.username + '">';
         // this.socket.emit('room' + this.state.old_id, data);
-        this.webview.postMessage(JSON.stringify( {message: chatcolor + this.state.username + '</a>: ' + data, type: 'message'} ), "*");
+        if(Number(this.state.banned) == 0){
+            this.webview.postMessage(JSON.stringify( {message: chatcolor + this.state.username + '</a>: ' + data, type: 'message'} ), "*");
+        }else{
+            ToastAndroid.show('You are banned', ToastAndroid.SHORT);
+        }
     }
 
     onChangeRoom(){
